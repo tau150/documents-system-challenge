@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HStack, Box } from "@chakra-ui/react";
+import { Stack, Box } from "@chakra-ui/react";
 import { Document } from "@/domain";
 import { Toaster } from "@/components/ui/toaster";
 import { Uploader, DocumentsToAssign } from "@/components";
@@ -15,16 +15,30 @@ export function DocumentUpload() {
     <Box>
       <Toaster />
       <Box>
-        <HStack alignItems="flex-start" gap={12}>
-          <Box bg="white" borderRadius="md" maxW="4/12" minW="4/12" p={8} shadow="md">
+        <Stack alignItems="flex-start" flexDir={{ sm: "column", lg: "row" }} gap={12}>
+          <Box
+            bg="white"
+            borderRadius="md"
+            maxW={{ sm: "100%", lg: "4/12" }}
+            minW={{ sm: "100%", lg: "4/12" }}
+            p={8}
+            shadow="md"
+          >
             <Uploader onUpload={(docs) => handleUploadedDocuments(docs)} />
           </Box>
           {documentsToAssign.length > 0 && (
-            <Box bg="white" borderRadius="md" maxW="4/12" minW="4/12" p={8} shadow="md">
+            <Box
+              bg="white"
+              borderRadius="md"
+              maxW={{ sm: "100%", lg: "4/12" }}
+              minW={{ sm: "100%", lg: "4/12" }}
+              p={8}
+              shadow="md"
+            >
               <DocumentsToAssign documents={documentsToAssign} />
             </Box>
           )}
-        </HStack>
+        </Stack>
       </Box>
     </Box>
   );

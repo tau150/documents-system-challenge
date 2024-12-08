@@ -48,7 +48,7 @@ export function SignatoriesAssignment({
       onAssign?.(res);
       setTimeout(() => {
         setDocument(null);
-      }, 2000);
+      }, 1000);
     },
     onError: () => {
       toaster.create({
