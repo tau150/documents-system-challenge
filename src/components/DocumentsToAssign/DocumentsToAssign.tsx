@@ -4,7 +4,11 @@ import { UserPlus } from "lucide-react";
 import { SignatoriesAssignment } from "@/components";
 import { Document } from "@/domain";
 
-export function DocumentsToAssign({ documents }: { documents: Document[] }) {
+interface DocumentsToAssignProps {
+  documents: Document[];
+}
+
+export function DocumentsToAssign({ documents }: DocumentsToAssignProps) {
   const [documentToAssign, setDocumentToAssign] = useState<{ name: string; id: string } | null>(
     null,
   );

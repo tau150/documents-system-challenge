@@ -1,18 +1,20 @@
 import { HStack, Input, Button, Text } from "@chakra-ui/react";
 
+interface SignatoriesFormProps {
+  value: string;
+  isError: boolean;
+  onCancel: (val: boolean | null) => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
 export function SignatoriesForm({
   isError,
   onSubmit,
   onChange,
   onCancel,
   value,
-}: {
-  value: string;
-  isError: boolean;
-  onCancel: (val: boolean | null) => void;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}) {
+}: SignatoriesFormProps) {
   return (
     <form onSubmit={onSubmit}>
       <Input placeholder="Insert emails" value={value} onChange={onChange} />

@@ -9,19 +9,21 @@ import { MAILER } from "@/services/mailerApi";
 import { Toaster, toaster } from "@/components/ui/toaster";
 import { Document } from "@/domain";
 
+interface SignatoriesAssignmentProps {
+  document: { name: string; id: string };
+  inline?: boolean;
+  onCancel: (value: boolean | null) => void;
+  setDocument: (doc: null) => void;
+  onAssign?: (doc: Document) => void;
+}
+
 export function SignatoriesAssignment({
   document,
   inline = false,
   setDocument,
   onCancel,
   onAssign,
-}: {
-  document: { name: string; id: string };
-  inline?: boolean;
-  onCancel: (value: boolean | null) => void;
-  setDocument: (doc: null) => void;
-  onAssign?: (doc: Document) => void;
-}) {
+}: SignatoriesAssignmentProps) {
   const [inputValue, setInputValue] = useState("");
   const [isValidationError, setIsValidationError] = useState(false);
   const { callRequest: assignSignatories } = useService<Document>(API.assignSignatories, {

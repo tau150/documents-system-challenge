@@ -7,9 +7,13 @@ import { API } from "@/services/documentsApi";
 import { Status, Document } from "@/domain";
 import { useService } from "@/hooks";
 
+interface UploaderProps {
+  onUpload: (documents: Document[]) => void;
+}
+
 const ACCEPTED_FILE_TYPES = [".pdf", ".docx"];
 
-export function Uploader({ onUpload }: { onUpload: (documents: Document[]) => void }) {
+export function Uploader({ onUpload }: UploaderProps) {
   const [dragActive, setDragActive] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
   const { isLoading, callRequest: saveDocuments } = useService(API.save, {
