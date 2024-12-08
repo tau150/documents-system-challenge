@@ -5,10 +5,9 @@ import { SignatoriesForm } from "./components/SignatoriesForm";
 import { useService } from "@/hooks";
 import { API } from "@/services/documentsApi";
 import { MAILER } from "@/services/mailerApi";
-
-import { Toaster, toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/toaster";
 import { Document } from "@/domain";
-
+import { notifySuccess, notifyError } from "@/utils/notify";
 interface SignatoriesAssignmentProps {
   document: { name: string; id: string };
   inline?: boolean;
@@ -29,36 +28,21 @@ export function SignatoriesAssignment({
   const { callRequest: assignSignatories } = useService<Document>(API.assignSignatories, {
     callOnLoad: false,
     onSuccess: async (res) => {
-      toaster.create({
-        title: "Great!",
-        description: "Signatories assigned to the document",
-        type: "success",
-      });
+      notifySuccess("Signatories assigned to the document");
       try {
         if (res?.signatories?.[0]) {
           // For testing purposes I am sending the email, just to the first signer
           await MAILER.sendEmail(res.id, res?.signatories[0]);
         }
       } catch (_e) {
-        toaster.create({
-          title: "Oops!",
-          description: "There was an issue sending the email",
-          type: "error",
-        });
+        notifyError("There was an issue sending the email");
       }
-
       onAssign?.(res);
       setTimeout(() => {
         setDocument(null);
       }, 1000);
     },
-    onError: () => {
-      toaster.create({
-        title: "Oops!",
-        description: "Error assigning signatories to the document",
-        type: "error",
-      });
-    },
+    onError: () => notifyError("Error assigning signatories to the document"),
   });
 
   const handleSubmitAssignment = (signatories: string[]) => {

@@ -5,9 +5,10 @@ import { getBadgeColor, getDocumentToVerify } from "./DocumentsList.utils";
 import { EmptyDocuments } from "./components/EmptyDocuments";
 import { useService } from "@/hooks/useService";
 import { API } from "@/services/documentsApi";
-import { Toaster, toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/toaster";
 import { Document, Status } from "@/domain";
 import { SimpleError, SignatoriesAssignment } from "@/components";
+import { notifyError, notifySuccess } from "@/utils/notify";
 
 export function DocumentList() {
   const [documentToAssign, setDocumentToAssign] = useState<{ name: string; id: string } | null>(
@@ -28,11 +29,7 @@ export function DocumentList() {
           if (docToCheck) {
             const action = doc.status === Status.SIGNED ? "Signed" : "Declined";
 
-            toaster.create({
-              title: "Document status update",
-              description: `${doc.name} was ${action}`,
-              type: "success",
-            });
+            notifySuccess(`${doc.name} was ${action}`, "Document status update");
           }
         });
 
@@ -43,21 +40,12 @@ export function DocumentList() {
   const { callRequest: deleteDocument } = useService(API.deleteDocumentById, {
     callOnLoad: false,
     onSuccess: (deletedId: string | void) => {
-      toaster.create({
-        title: "Success",
-        description: "Deletion successfully",
-        type: "success",
-      });
+      notifySuccess("Deletion successfully");
       if (deletedId) {
         setDocuments((prev) => prev.filter((doc) => doc.id !== deletedId));
       }
     },
-    onError: () =>
-      toaster.create({
-        title: "Oops!",
-        description: "Error deleting the document",
-        type: "error",
-      }),
+    onError: () => notifyError("Error deleting the document"),
   });
 
   const handleDeleteDocument = (id: string) => {

@@ -2,10 +2,11 @@ import { useState } from "react";
 import { FileUp, FileType2, CircleCheck, SquareX } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
 import { VStack, Button, Text, Input, HStack, Box, Icon, List } from "@chakra-ui/react";
-import { Toaster, toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/toaster";
 import { API } from "@/services/documentsApi";
 import { Status, Document } from "@/domain";
 import { useService } from "@/hooks";
+import { notifyError, notifySuccess } from "@/utils/notify";
 
 interface UploaderProps {
   onUpload: (documents: Document[]) => void;
@@ -19,21 +20,11 @@ export function Uploader({ onUpload }: UploaderProps) {
   const { isLoading, callRequest: saveDocuments } = useService(API.save, {
     callOnLoad: false,
     onSuccess: (response: Document[] | void) => {
-      toaster.create({
-        title: "Great!",
-        description: "Documents saved",
-        type: "success",
-      });
+      notifySuccess("Documents saved");
       setFiles([]);
       onUpload(response ?? []);
     },
-    onError: (errorMessage: string) => {
-      toaster.create({
-        title: "Oops!",
-        description: errorMessage,
-        type: "error",
-      });
-    },
+    onError: (errorMessage: string) => notifyError(errorMessage),
   });
 
   const handleDrag = (e: React.DragEvent) => {
