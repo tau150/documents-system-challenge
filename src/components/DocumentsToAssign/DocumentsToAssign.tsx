@@ -33,6 +33,7 @@ export function DocumentsToAssign({ documents }: DocumentsToAssignProps) {
               <UserPlus
                 color="violet"
                 cursor="pointer"
+                data-testid="assign-icon"
                 size={16}
                 onClick={() => setDocumentToAssign({ name: doc.name, id: doc.id })}
               />

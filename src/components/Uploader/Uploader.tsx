@@ -95,6 +95,7 @@ export function Uploader({ onUpload }: UploaderProps) {
         <Input
           multiple
           accept={ACCEPTED_FILE_TYPES.join(",")}
+          data-testid="upload-file"
           height="100%"
           left="0"
           opacity="0"

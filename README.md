@@ -39,8 +39,12 @@ To maintain simplicity, I’m using Chakra UI, which provides pre-built componen
 
 ## Testing
 
-Due to time constraints, I was not able to add test. In my daily work, I typically use Jest along with React Testing Library. You can find some test examples from another projects:
+I added some test using vitest and react-testing library. But I did not have enough time to test all the components and services. You can check the test running:
 
-https://github.com/tau150/taxes_challenge
-https://github.com/tau150/iot-dashboard
-https://github.com/tau150/crypto_payment
+<br>
+
+```
+  npm install
+  npx vitest
+  npm run coverage
+```

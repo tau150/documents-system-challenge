@@ -66,16 +66,24 @@ export function DocumentList() {
 
   if (isLoading) {
     return (
-      <Flex alignItems="center" h="60vh" justifyContent="center" w="100%">
+      <Flex
+        alignItems="center"
+        data-testid="loading-documents"
+        h="60vh"
+        justifyContent="center"
+        w="100%"
+      >
         <Spinner size="xl" />
       </Flex>
     );
   }
 
   if (error) {
-    <Flex alignItems="center" h="60vh" justifyContent="center" w="100%">
-      <SimpleError />
-    </Flex>;
+    return (
+      <Flex alignItems="center" h="60vh" justifyContent="center" w="100%">
+        <SimpleError />
+      </Flex>
+    );
   }
 
   return (
@@ -116,12 +124,14 @@ export function DocumentList() {
                     <Trash2
                       color="red"
                       cursor="pointer"
+                      data-testid="delete-button"
                       size={16}
                       onClick={() => handleDeleteDocument(doc.id)}
                     />
                     <UserPlus
                       color="violet"
                       cursor="pointer"
+                      data-testid="assign-button"
                       size={16}
                       onClick={() => setDocumentToAssign({ name: doc.name, id: doc.id })}
                     />
