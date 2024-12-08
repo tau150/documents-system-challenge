@@ -31,7 +31,7 @@ export function DocumentList() {
             toaster.create({
               title: "Document status update",
               description: `${doc.name} was ${action}`,
-              type: "warning",
+              type: "success",
             });
           }
         });
