@@ -23,7 +23,7 @@ To fetch notifications about state changes, I’m using polling with Supabase. I
 
 ## Mailing service
 
-To simulate the functionality as closely as possible, I am using the EmailJS library for sending emails from the client. My email address is configured for this purpose, so if you run tests, you will receive an email from my account (this is a free trial with a limit of 200 emails per month). Attachments are not supported, which is why you will not find any attached files in the email.
+To simulate the functionality as closely as possible, I am using the EmailJS library for sending emails from the client. My email address is configured for this purpose, so if you run the live demo an assign a document to your email, you will receive an email from my account (this is a free trial with a limit of 200 emails per month). Attachments are not supported, which is why you will not find any attached files in the email.
 
 The email you receive will contain two buttons. These buttons send a request to an Edge Function I created in Supabase to update the document's status to either "Signed" or "Declined." For practical reasons, the email is sent only to the first assigned person, and clicking the button updates the document's status regardless of whether it has one or more signatories.
 
